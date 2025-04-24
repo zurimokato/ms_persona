@@ -8,6 +8,8 @@ import com.pragma.reto2.ms_persona.infrastructure.adapters.in.rest.controller.re
 import com.pragma.reto2.ms_persona.infrastructure.adapters.in.rest.controller.response.PersonaResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,5 +49,19 @@ public class PersonaV1Controller {
         PersonaResponse response=personaRestMapper.torResponse(savePersonaUseCase.save(personaRestMapper.toDomain(persona)));
         genericResponse.setContent(response);
        return ResponseEntity.ok(genericResponse);
+    }
+
+    @GetMapping("paging")
+    public ResponseEntity<GenericResponse>getPaging(Pageable pageable){
+        Page<PersonaResponse>personaPage=findPersonaUseCase.findPersonas(pageable).map(
+                personaRestMapper::torResponse
+        );
+
+        GenericResponse genericResponse=GenericResponse.getSuccessInstance();
+        genericResponse.setContent(personaPage.getContent());
+        genericResponse.setPage(personaRestMapper.toPageResponse(personaPage));
+
+        return ResponseEntity.ok(genericResponse);
+
     }
 }

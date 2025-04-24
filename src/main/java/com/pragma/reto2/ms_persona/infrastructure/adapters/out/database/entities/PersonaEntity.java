@@ -1,8 +1,6 @@
 package com.pragma.reto2.ms_persona.infrastructure.adapters.out.database.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +10,7 @@ import lombok.Setter;
 @Table(name = "personas")
 public class PersonaEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String documentNumber;
     private String name;
