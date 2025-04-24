@@ -19,21 +19,21 @@ public class PersonaService implements FindPersonaUseCase, SavePersonaUseCase {
 
     @Override
     public List<Persona> findAll() {
-        return List.of();
+        return personaOutPutPort.findAll();
     }
 
     @Override
     public Page<Persona> findPersonas(Pageable pageable) {
-        return null;
+        return personaOutPutPort.findPersonas(pageable);
     }
 
     @Override
     public Persona findById(Long id) {
-        return null;
+        return personaOutPutPort.findById(id);
     }
 
     @Override
     public Persona save(Persona persona) {
-        return null;
+        return personaOutPutPort.save(persona);
     }
 }
