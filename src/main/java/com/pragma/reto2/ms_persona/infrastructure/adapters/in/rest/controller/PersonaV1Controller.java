@@ -5,10 +5,8 @@ import com.pragma.reto2.ms_persona.application.ports.input.persona.SavePersonaUs
 import com.pragma.reto2.ms_persona.infrastructure.adapters.in.rest.controller.mapper.PersonaRestMapper;
 import com.pragma.reto2.ms_persona.infrastructure.adapters.in.rest.controller.request.PersonaRequest;
 import com.pragma.reto2.ms_persona.infrastructure.adapters.in.rest.controller.response.GenericResponse;
-import com.pragma.reto2.ms_persona.infrastructure.adapters.in.rest.controller.response.PageResponse;
 import com.pragma.reto2.ms_persona.infrastructure.adapters.in.rest.controller.response.PersonaResponse;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +44,8 @@ public class PersonaV1Controller {
     @PostMapping
     ResponseEntity<GenericResponse>postPersona(@Valid @RequestBody PersonaRequest persona){
         GenericResponse genericResponse=GenericResponse.getSuccessInstance();
-       PersonaResponse response=personaRestMapper.torResponse(savePersonaUseCase.save(personaRestMapper.toDomain(persona)));
-        return ResponseEntity.ok(response);
+        PersonaResponse response=personaRestMapper.torResponse(savePersonaUseCase.save(personaRestMapper.toDomain(persona)));
+        genericResponse.setContent(response);
+       return ResponseEntity.ok(genericResponse);
     }
 }
