@@ -14,6 +14,6 @@ EXPOSE 8080
 ARG JAR_FILE=target/ms_persona-0.0.1-SNAPSHOT.jar
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} app.jar
+COPY ${JAR_FILE} app.jar
 
 ENTRYPOINT ["java","-jar","app.jar"]
